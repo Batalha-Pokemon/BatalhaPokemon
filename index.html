@@ -14,9 +14,11 @@
                 <article class="status">
                     <div class="titulo">
                         <h1>Pikachu</h1>
+                        <!-- Nesse span voce consegue alterar a vida que é exibida para o usuario -->
                         <h2>HP <span id="vida">48</span></h2>
                     </div>
                     <div class="barra-vida" id="barra_vida_time_um">
+                        <!-- Para aumentar e diminuir a vida, so precisa aumentar ou diminuir a largura do "progresso-pokemon-um" -->
                         <div class="progresso-pokemon-um"></div>
                     </div>
                 </article>
@@ -24,6 +26,7 @@
             <div class="esquerda">
                 <article class="grama">
                     <picture class="pokemon-um">
+                        <!-- Aqui voce troca a url do pokemon para o pokemon sorteado -->
                         <img src="https://i.pinimg.com/originals/e9/38/d1/e938d18fc07a3ffd16b4864ef2f1308f.gif" width="160px">
                     </picture>
                 </article>
@@ -34,9 +37,11 @@
                 <article class="status">
                     <div class="titulo">
                         <h1>Charmander</h1>
+                        <!-- Nesse span voce consegue alterar a vida que é exibida para o usuario -->
                         <h2>HP <span id="vida">18</span></h2>
                     </div>
                     <div class="barra-vida" id="barra_vida_time_dois">
+                        <!-- Para aumentar e diminuir a vida, so precisa aumentar ou diminuir a largura do "progresso-pokemon-dois" -->
                         <div class="progresso-pokemon-dois"></div>
                     </div>
                 </article>
@@ -44,11 +49,13 @@
             <div class="direita">
                 <article class="grama"></article>
                 <picture class="pokemon-dois">
+                        <!-- Aqui voce troca a url do pokemon para o pokemon sorteado -->
                     <img src="https://i.pinimg.com/originals/f9/d2/0e/f9d20eaf4a178d5e721ac9dafa468633.png" width="180px">
                 </picture>
             </div>
         </section>
         <section class="painel">
+            <!-- Aqui fica os dois ataques do pokemon -->
             <button class="btn" onclick="ataque()">Atacar</button>
             <button class="btn" onclick="ataque()">Ataque</button>
             <button class="btn" onclick="trocar()">Trocar</button>
