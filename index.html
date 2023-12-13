@@ -10,12 +10,48 @@
 <body>
     <main>
         <section class="time-um arenas">
-            <article class="status"></article>
-            <article class="grama"></article>
+            <div class="direita">
+                <article class="status">
+                    <div class="titulo">
+                        <h1>Pikachu</h1>
+                        <h2>HP <span id="vida">48</span></h2>
+                    </div>
+                    <div class="barra-vida" id="barra_vida_time_um">
+                        <div class="progresso-pokemon-um"></div>
+                    </div>
+                </article>
+            </div>
+            <div class="esquerda">
+                <article class="grama">
+                    <picture class="pokemon-um">
+                        <img src="https://i.pinimg.com/originals/e9/38/d1/e938d18fc07a3ffd16b4864ef2f1308f.gif" width="160px">
+                    </picture>
+                </article>
+            </div>
         </section>
         <section class="time-dois arenas">
-            <article class="status"></article>
-            <article class="grama"></article>
+            <div class="esquerda">
+                <article class="status">
+                    <div class="titulo">
+                        <h1>Charmander</h1>
+                        <h2>HP <span id="vida">18</span></h2>
+                    </div>
+                    <div class="barra-vida" id="barra_vida_time_dois">
+                        <div class="progresso-pokemon-dois"></div>
+                    </div>
+                </article>
+            </div>
+            <div class="direita">
+                <article class="grama"></article>
+                <picture class="pokemon-dois">
+                    <img src="https://i.pinimg.com/originals/f9/d2/0e/f9d20eaf4a178d5e721ac9dafa468633.png" width="180px">
+                </picture>
+            </div>
+        </section>
+        <section class="painel">
+            <button class="btn" onclick="ataque()">Atacar</button>
+            <button class="btn" onclick="ataque()">Ataque</button>
+            <button class="btn" onclick="trocar()">Trocar</button>
         </section>
     </main>
 </body>
