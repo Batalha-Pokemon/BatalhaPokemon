@@ -278,10 +278,28 @@ const pokemon = [
                 dano: 50,
                 tipoAtaque: "Steel"
             }]
-    }]
+        }];
+        
+    const teamOnePokemon = [];
+    const teamTwoPokemon = [];
+    const treinador = [{
+        nome: "Red",
+        time: teamOnePokemon,
+        resultados: {
+            vitorias: 0,
+            derrotas: 0
+        }
+    },
+    {
+        nome: "blue",
+        time: teamTwoPokemon,
+        resultados: {
+            vitorias: 0,
+            derrotas: 0
+        }
+    }
+];
 
-const teamOnePokemon = [];
-const teamTwoPokemon = [];
 function criarTimes() {
     for (let i = 0; i < 6; i++) {
         const pokemonRandom = Math.floor(Math.random() * 16);
@@ -292,6 +310,8 @@ function criarTimes() {
         const pokemonRandom = Math.floor(Math.random() * 16);
         teamTwoPokemon.push(pokemon[pokemonRandom]);
     }
+
+    gerarBatalha(teamOnePokemon, teamTwoPokemon);
 }
 
 function calcularTipos(ataque, tipoPoke, indexPokemon1, indexPokemon2) {
