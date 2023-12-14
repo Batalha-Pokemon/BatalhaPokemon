@@ -275,10 +275,28 @@ const pokemon = [
                 dano: 50,
                 tipoAtaque: "Steel"
             }]
-    }]
+        }];
+        
+    const teamOnePokemon = [];
+    const teamTwoPokemon = [];
+    const treinador = [{
+        nome: "Red",
+        time: teamOnePokemon,
+        resultados: {
+            vitorias: 0,
+            derrotas: 0
+        }
+    },
+    {
+        nome: "blue",
+        time: teamTwoPokemon,
+        resultados: {
+            vitorias: 0,
+            derrotas: 0
+        }
+    }
+];
 
-const teamOnePokemon = [];
-const teamTwoPokemon = [];
 function criarTimes() {
     for (let i = 0; i < 6; i++) {
         const pokemonRandom = Math.floor(Math.random() * 16);
@@ -289,9 +307,12 @@ function criarTimes() {
         const pokemonRandom = Math.floor(Math.random() * 16);
         teamTwoPokemon.push(pokemon[pokemonRandom]);
     }
+
+    gerarBatalha(teamOnePokemon, teamTwoPokemon);
 }
 
 function calcularTipos(ataque, tipoPoke) {
+    console.log(ataque);
     if (ataque == "Fire" && (tipoPoke == "Grass" || tipoPoke == "Steel" || tipoPoke == "Ice" || tipoPoke == "Bug")) {
         return 1
     } else if (ataque == "Fire" && (tipoPoke == "Fire" || tipoPoke == "Water" || tipoPoke == "Rock" || tipoPoke == "Dragon")) {
@@ -461,8 +482,21 @@ function gerarBatalha(teamOnePokemon, teamTwoPokemon) {
     </div>
     `;
 
-    const posicaoHpPoke = pokemon.indexOf(`${teamOnePokemon[0].nome}`);
-    const hpFixo = pokemon[posicaoHpPoke].hp;
+    let hpFixo = 0;
+
+    for(
+        let i = 0;
+        i < pokemon.length;
+        i += 1
+    ){
+        var nomePoke = pokemon[i].nome;
+
+        if(teamOnePokemon[0].nome == nomePoke){
+            hpFixo = pokemon[i].hp;
+            break
+        }
+    }
+
     let porcentagemHp = teamOnePokemon[0].hp * 100 / hpFixo;
     const mudarHp = document.getElementById('qtd_poke1');
     mudarHp.style.width = `${porcentagemHp}%`;
@@ -490,18 +524,31 @@ function gerarBatalha(teamOnePokemon, teamTwoPokemon) {
         </picture>
     </div>
     `;
-    // @Thawan -- Comentei pq estava dando erro
-    // const posicaoHpPoke = pokemon.indexOf(`${teamTwoPokemon[0].nome}`);
-    // const hpFixo = pokemon[posicaoHpPoke].hp;
-    // let porcentagemHp = teamTwoPokemon[0].hp * 100 / hpFixo;
-    // const mudarHp = document.getElementById('qtd_poke1');
-    mudarHp.style.width = `${porcentagemHp}%`;
+    
+    let hpFixo2 = 0;
 
-    const painel = document.getElementById('painel');
+    for(
+        let i = 0;
+        i < pokemon.length;
+        i += 1
+    ){
+        var nomePoke = pokemon[i].nome;
+
+        if(teamTwoPokemon[0].nome == nomePoke){
+            hpFixo2 = pokemon[i].hp;
+            break
+        }
+    }
+
+    let porcentagemHp2 = teamTwoPokemon[0].hp * 100 / hpFixo2;
+    const mudarHp2 = document.getElementById('qtd_poke2');
+    mudarHp2.style.width = `${porcentagemHp2}%`;
+
+    const painel = document.getElementById('div_painel');
 
     painel.innerHTML = `
-        <button class="btn" onclick="calcularTipos(${teamOnePokemon[0].ataques.tipoAtaque[0]}, ${teamTwoPokemon[0].tipo})">Ataque 1</button>
-        <button class="btn" onclick="calcularTipos(${teamOnePokemon[0].ataques.tipoAtaque[1]}, ${teamTwoPokemon[0].tipo})">Ataque 2</button>
+        <button class="btn" onclick="calcularTipos('${teamOnePokemon[0].ataques[0].tipoAtaque}', '${teamTwoPokemon[0].tipo}')"> ${teamOnePokemon[0].ataques[0].nomeAtaque} </button>
+        <button class="btn" onclick="calcularTipos('${teamOnePokemon[0].ataques[1].tipoAtaque}', '${teamTwoPokemon[0].tipo}')"> ${teamOnePokemon[0].ataques[1].nomeAtaque} </button>
     `;
     
 
