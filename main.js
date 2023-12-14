@@ -213,7 +213,7 @@ const pokemon = [
     },
     {
         nome: "Charizard",
-        url: '',
+        url: 'https://custom-doodle.com/wp-content/uploads/doodle/pokemon-charizard-pixel/pokemon-charizard-pixel-doodle.gif',
         tipo: "Fire",
         hp: 480,
         ataques: [
@@ -230,6 +230,7 @@ const pokemon = [
     },
     {
         nome: "Sceptile",
+        url: "https://media.tenor.com/XGKMLiIY4mgAAAAj/sprite-pokemon.gif",
         tipo: "Grass",
         hp: 410,
         ataques: [
@@ -246,6 +247,7 @@ const pokemon = [
     },
     {
         nome: "Raikou",
+        url:"https://static.wikia.nocookie.net/theairridegroup/images/1/1f/Raikou_Sprite.gif/revision/latest?cb=20160206041652",
         tipo: "Electric",
         hp: 500,
         ataques: [
@@ -262,6 +264,7 @@ const pokemon = [
     },
     {
         nome: "Lucario",
+        url: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/b476dc13-7af0-48c5-8eb6-9c6f28f73099/degm1xq-1e59f2bb-ff8f-4ac7-839c-8f52803fbc25.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2I0NzZkYzEzLTdhZjAtNDhjNS04ZWI2LTljNmYyOGY3MzA5OVwvZGVnbTF4cS0xZTU5ZjJiYi1mZjhmLTRhYzctODM5Yy04ZjUyODAzZmJjMjUuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.IThy2-b9yAW6tlXI1JbdONrMHB1Mx5J9BketY3Lyxl0",
         tipo: "Fighting",
         hp: 590,
         ataques: [
@@ -291,7 +294,7 @@ function criarTimes() {
     }
 }
 
-function calcularTipos(ataque, tipoPoke) {
+function calcularTipos(ataque, tipoPoke, indexPokemon1, indexPokemon2) {
     if (ataque == "Fire" && (tipoPoke == "Grass" || tipoPoke == "Steel" || tipoPoke == "Ice" || tipoPoke == "Bug")) {
         return 1
     } else if (ataque == "Fire" && (tipoPoke == "Fire" || tipoPoke == "Water" || tipoPoke == "Rock" || tipoPoke == "Dragon")) {
@@ -425,7 +428,7 @@ function calcularTipos(ataque, tipoPoke) {
     }
 }
 
-function gerarBatalha(teamOnePokemon, teamTwoPokemon) {
+function gerarBatalha(teamOnePokemon, teamTwoPokemon, indexTime1, indexTime2) {
     // Quando for considerar o tipo durante o ataque passar o tipo do Pokémon atacado como parametro para a função
     // calcularTipos, irei retornar 1 para super efetivo, 2 para normal e 3 para não efetivo e retornarei 0 se o tipo do ataque não pode atingir o tipo do do pokemon atacado, então o dano do ataque
     // deve ser 0
@@ -461,10 +464,9 @@ function gerarBatalha(teamOnePokemon, teamTwoPokemon) {
     </div>
     `;
 
-    const posicaoHpPoke = pokemon.indexOf(`${teamOnePokemon[0].nome}`);
-    const hpFixo = pokemon[posicaoHpPoke].hp;
+    let hpFixo = pokemon[indexTime1[0]].hp;
     let porcentagemHp = teamOnePokemon[0].hp * 100 / hpFixo;
-    const mudarHp = document.getElementById('qtd_poke1');
+    let mudarHp = document.getElementById('qtd_poke1');
     mudarHp.style.width = `${porcentagemHp}%`;
     
     arena2.innerHTML = `
@@ -490,20 +492,146 @@ function gerarBatalha(teamOnePokemon, teamTwoPokemon) {
         </picture>
     </div>
     `;
-    // @Thawan -- Comentei pq estava dando erro
-    // const posicaoHpPoke = pokemon.indexOf(`${teamTwoPokemon[0].nome}`);
-    // const hpFixo = pokemon[posicaoHpPoke].hp;
-    // let porcentagemHp = teamTwoPokemon[0].hp * 100 / hpFixo;
-    // const mudarHp = document.getElementById('qtd_poke1');
-    mudarHp.style.width = `${porcentagemHp}%`;
 
-    const painel = document.getElementById('painel');
+    let hpFixo2 = pokemon[indexTime2[0]].hp;
+    let porcentagemHp2 = teamTwoPokemon[0].hp * 100 / hpFixo2;
+    let mudarHp2 = document.getElementById('qtd_poke2');
+    mudarHp2.style.width = `${porcentagemHp2}%`;
+    mudarHp2.style.width = `${porcentagemHp2}%`;
+
+    let painel = document.getElementById('painel');  
 
     painel.innerHTML = `
-        <button class="btn" onclick="calcularTipos(${teamOnePokemon[0].ataques.tipoAtaque[0]}, ${teamTwoPokemon[0].tipo})">Ataque 1</button>
-        <button class="btn" onclick="calcularTipos(${teamOnePokemon[0].ataques.tipoAtaque[1]}, ${teamTwoPokemon[0].tipo})">Ataque 2</button>
+        <button class="btn" onclick="darDano(calcularTipos('${teamOnePokemon[0].ataques[0].tipoAtaque}', '${teamTwoPokemon[0].tipo}'), '${teamOnePokemon[0].nome}', '${teamTwoPokemon[0].nome}', ${teamOnePokemon[0].ataques[0].dano}), 1">${teamOnePokemon[0].ataques[0].nomeAtaque}</button>
+        <button class="btn" onclick="darDano(calcularTipos('${teamOnePokemon[0].ataques[0].tipoAtaque}', '${teamTwoPokemon[0].tipo}'), '${teamOnePokemon[0].nome}', '${teamTwoPokemon[0].nome}', ${teamOnePokemon[0].ataques[1].dano}), 1">${teamOnePokemon[0].ataques[1].nomeAtaque}</button>
+        <button class="btn" onclick="trocar('${teamOnePokemon[0].nome}', '${teamTwoPokemon[0].nome}')">Trocar</button>
     `;
-    
-
-    //super 1.5x neutro 1 não 0.5 
 }
+
+function darDano(multiplicador, nomePokemon1, nomePokemon2, dano, pokemonVez){
+    console.log(multiplicador, nomePokemon1, nomePokemon2, dano);
+    let index = buscaIndiceNome(nomePokemon1, nomePokemon2)
+
+    if(pokemonVez == 1){
+        time2[index[1]].hp -= dano
+        console.log(time2[index[1]].hp)
+    } else{
+        time1[index[0]].hp -= dano
+        console.log(time1[index[0]].hp)
+    }
+
+    atualizarArena(index[0], index[1])
+}
+
+function atualizarArena(indexPokemon1, indexPokemon2){
+    let arena1 = document.getElementById('arena1');
+    let arena2 = document.getElementById('arena2');
+    let mudarHp = document.getElementById('qtd_poke1');
+    let mudarHp2 = document.getElementById('qtd_poke2');
+    let painel = document.getElementById('painel');  
+
+    arena1.innerHTML = `
+    <div class="direita">
+        <article class="status">
+            <div class="titulo">
+                <h1>${time1[indexPokemon1].nome}</h1>
+                
+                <h2>HP <span id="vida">${time1[indexPokemon1].hp}</span></h2>
+            </div>
+            <div class="barra-vida" id="barra_vida_time_um">
+                
+                <div class="progresso-pokemon-um" id="qtd_poke1"></div>
+            </div>
+        </article>
+    </div>
+    <div class="esquerda">
+        <article class="grama">
+            <picture class="pokemon-um">
+                
+                <img src="${time1[indexPokemon1].url}" width="160px">
+            </picture>
+        </article>
+    </div>
+    `;
+
+    let hpFixo = time1[indexTime1].hp;
+    let porcentagemHp = time1[indexPokemon1].hp * 100 / hpFixo;
+    mudarHp.style.width = `${porcentagemHp}%`;
+    
+    arena2.innerHTML = `
+        <div class="esquerda">
+            <article class="status">
+        
+            <div class="titulo">
+                    <h1>${time2[indexPokemon2].nome}</h1>
+                    
+                    <h2>HP <span id="vida">${time2[indexPokemon2].hp}</span></h2>
+                </div>
+                <div class="barra-vida" id="barra_vida_time_dois">
+                    
+                    <div class="progresso-pokemon-dois" id="qtd_poke2"></div>
+                </div>
+            </article>
+        </div>
+        <div class="direita">
+            <article class="grama"></article>
+            <picture class="pokemon-dois">
+                    
+                <img src="${time2[indexPokemon2].url}" width="180px">
+            </picture>
+        </div>
+    `;
+
+    let hpFixo2 = pokemon[indexTime2[indexPokemon2]].hp;
+    let porcentagemHp2 = time2[indexPokemon2].hp * 100 / hpFixo2;
+    mudarHp2.style.width = `${porcentagemHp2}%`;
+    mudarHp2.style.width = `${porcentagemHp2}%`;
+}
+
+function buscaIndiceNome(nomePokemon1, nomePokemon2){
+    let i1 = 0
+    let i2 = 0
+    for(let i = 0; i > time1.length; i++){
+        if(time1[i].nome){
+            i1 = time1[i].index
+            break
+        }
+    }
+    for(let i = 0; i > time2.length; i++){
+        if(time2[i].nome){
+            i2 = time2[i].index
+            break
+        }
+    }
+    let listI = [i1, i2]
+    return listI
+}
+
+
+time1 = []
+time2 = []
+indiceTime1 = []
+indiceTime2 = []
+
+function criaTime(){
+
+    let listaPokemonProv = pokemon
+
+    for(let i = 0; i < 6; i++){
+
+        let random1 = parseInt(Math.random() * listaPokemonProv.length)
+        time1.push(listaPokemonProv[random1])
+        indiceTime1.push(random1)
+        listaPokemonProv.slice(random1, 1);
+
+        let random2 = parseInt(Math.random() * listaPokemonProv.length)
+        time2.push(listaPokemonProv[random2])
+        indiceTime2.push(random2)
+        listaPokemonProv.slice(random2, 1)
+
+    }
+    console.log(time1, time2)
+    gerarBatalha(time1, time2, indiceTime1, indiceTime2)
+}
+
+criaTime()
