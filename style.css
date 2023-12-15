@@ -149,3 +149,18 @@ main{
     justify-content: center;
     top: 30px;
 }
+.escolher{
+    position: absolute;
+    height: 60%;
+    width: 30%;
+    background-color: #888888;
+    box-shadow: 0 0 10px 0 #000;
+    border-radius: 0.5rem;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
